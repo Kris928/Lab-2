@@ -25,3 +25,15 @@ monitor_process &
 wait $pid
 
 date "+Fin: %Y-%m-%d %H:%M:%S" >> "$log_file"
+
+gnuplot <<EOF
+set terminal png
+set output 'cpu_mem_plot.png'
+set title 'Consumo de CPU y Memoria'
+set xlabel 'Tiempo (segundos)'
+set ylabel 'Porcentaje de Uso'
+set key top left
+plot '$log_file' using 1 with lines title '% CPU', '$log_file' using 2 with lines title '% Memoria'
+EOF
+
+echo "Grafico generado en cpu_mem_plot.png"
