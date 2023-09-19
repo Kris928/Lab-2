@@ -15,3 +15,8 @@ verificar_y_reiniciar() {
         echo "Proceso $nombre_proceso reiniciado."
     fi
 }
+
+while true; do
+    verificar_y_reiniciar
+    sleep 10
+done
