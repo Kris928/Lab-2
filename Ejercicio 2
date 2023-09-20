@@ -1,0 +1,22 @@
+if [ $# -ne 2 ]; then
+    echo "Uso: $0 <nombre_del_proceso> <comando_para_ejecutar>"
+    exit 1
+fi
+
+nombre_proceso="$1"
+comando="$2"
+
+verificar_y_reiniciar() {
+    if pgrep -x "$nombre_proceso" > /dev/null; then
+        echo "El proceso $nombre_proceso está en ejecución."
+    else
+        echo "El proceso $nombre_proceso no está en ejecución. Iniciando..."
+        $comando &
+        echo "Proceso $nombre_proceso reiniciado."
+    fi
+}
+
+while true; do
+    verificar_y_reiniciar
+    sleep 10
+done
